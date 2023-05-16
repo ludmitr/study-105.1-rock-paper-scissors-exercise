@@ -29,7 +29,7 @@ def beats(one: str, two: str) -> bool:
 class Game:
     """ Represents a game of Rock, Paper, Scissors between two players."""
 
-    def __init__(self, p1, p2):
+    def __init__(self, p1: players.Player, p2: players.Player):
         self.p1 = p1
         self.p2 = p2
         # index represent round. None is Draw, 1,2 represent players who won
@@ -45,9 +45,14 @@ class Game:
         output_text = f"Player 1: {move1}  Player 2: {move2} ----> "
         if winner:
             output_text += f"Player {winner} won"
+            if winner == 1:
+                self.p1.update_score()
+            else:
+                self.p2.update_score()
         else:
             output_text += "Draw!"
-
+        output_text += f"\nFirst player score:{self.p1.my_score}," \
+                       f"Second player score:{self.p2.my_score}"
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
 
@@ -63,18 +68,19 @@ class Game:
 
         # calculate and print the winner
         out_text = "GAME RESULT: "
-        winner, result = self.calculate_winner()
+        winner = self.calculate_winner()
         if winner:
             out_text += f"Player {winner} WON!!! "
         else:
             out_text += "DRAW!!!"
-        out_text += f" Player1 score:{result[0]}, Player2 score: {result[1]}"
+        out_text += f"First player score: {self.p1.my_score}, " \
+                    f"Second player score: {self.p2.my_score}"
         print(out_text)
 
-    def calculate_winner(self) -> tuple:
+    def calculate_winner(self):
         """calculates and return the winner of the game.
         1,2 if player 1,2 won and None for draw
-        returns tuple (winner,(score_first_player,score_second_player)"""
+        returns int or None"""
         player_one = 0
         player_two = 0
         for result in self.round_score:
@@ -89,11 +95,11 @@ class Game:
         else:
             winner = None
 
-        return winner, (player_one, player_two)
+        return winner
 
     def who_won(self, move1: str, move2: str):
         """returns None for Draw, 1 or 2 if player 1 or 2 won,
-        also save score to """
+        also save score to round_score  """
         # adding result of a round to self.round_score
         if beats(move1, move2):
             self.round_score.append(1)

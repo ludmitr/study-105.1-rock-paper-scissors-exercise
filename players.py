@@ -8,6 +8,11 @@ class Player:
 
     def __init__(self):
         self.moves_result = []
+        self.my_score = 0
+
+    def update_score(self, points_won=1):
+        """Updates personal score of a player"""
+        self.my_score += points_won
 
     def move(self):
         pass
