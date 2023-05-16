@@ -5,8 +5,7 @@ import players
 
 def main():
     """Entry point of the program."""
-    print(beats("rock", "papaer"))
-    game = Game(players.HumanPlayer(), players.RandomPlayer())
+    game = Game(players.HumanPlayer(), players.ReflectPlayer())
     game.play_game()
 
 
@@ -58,7 +57,33 @@ class Game:
         for round in range(3):
             print(f"Round {round}:")
             self.play_round()
-        print("Game over!")
+
+        # calculate and print the winner
+        out_text = "GAME RESULT: "
+        winner = self.calculate_winner()
+        if winner:
+            out_text += f"Player {winner} WON!!!"
+        else:
+            out_text += "DRAW!!!"
+        print(out_text)
+
+    def calculate_winner(self):
+        """calculates and return the winner of the game. 1,2 if player 1,2 won and None for draw"""
+        player_one = 0
+        player_two = 0
+        for result in self.round_score:
+            if result and result == 1:
+                player_one += 1
+            elif result:
+                player_two += 1
+
+        if player_one > player_two:
+            return 1
+        elif player_two > player_one:
+            return 2
+        else:
+            return None
+
 
     def who_won(self, move1: str, move2: str):
         """returns None for Draw, 1 or 2 if player 1 or 2 won, also save score to """

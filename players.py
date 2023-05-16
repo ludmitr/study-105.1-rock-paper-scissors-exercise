@@ -4,6 +4,7 @@ class Player:
     moves = ['rock', 'paper', 'scissors']
     def __init__(self):
         self.moves_result = []
+
     def move(self):
         return 'rock'
 
@@ -33,6 +34,7 @@ class ReflectPlayer(Player):
         else:
             index = random.randint(0, 2)
             return self.moves[index]
+
 
 class CyclePlayer(Player):
     def move(self):
