@@ -101,12 +101,12 @@ class Game:
         """returns None for Draw, 1 or 2 if player 1 or 2 won,
         also save score to round_score  """
         # adding result of a round to self.round_score
-        if beats(move1, move2):
-            self.round_score.append(1)
-        elif beats(move2, move1):
-            self.round_score.append(2)
-        else:
+        if move1 == move2:
             self.round_score.append(None)
+        elif beats(move1, move2):
+            self.round_score.append(1)
+        else:
+            self.round_score.append(2)
 
         return self.round_score[-1]
 
