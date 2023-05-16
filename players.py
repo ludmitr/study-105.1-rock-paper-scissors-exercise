@@ -4,19 +4,27 @@ import random
 class Player:
     """ Base class for players, providing common attributes and methods."""
     moves = ['rock', 'paper', 'scissors']
+
     def __init__(self):
         self.moves_result = []
 
     def move(self):
-        return 'rock'
+        pass
 
     def learn(self, my_move, their_move):
         """ Records the moves made by the player and their opponent."""
         self.moves_result.append((my_move, their_move))
 
 
+class AllRockPlayer(Player):
+    """A player class that inherits from the Player
+     class and plays always rock move"""
+    def move(self):
+        return self.moves
+
 class RandomPlayer(Player):
-    """A player class that inherits from the Player class and plays a random move"""
+    """A player class that inherits from the
+    Player class and plays a random move"""
     def move(self):
         index = random.randint(0, 2)
         return self.moves[index]
