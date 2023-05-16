@@ -1,6 +1,8 @@
+"""This module contains different type of players for rps.py"""
 import random
 
 class Player:
+    """ Base class for players, providing common attributes and methods."""
     moves = ['rock', 'paper', 'scissors']
     def __init__(self):
         self.moves_result = []
@@ -9,17 +11,21 @@ class Player:
         return 'rock'
 
     def learn(self, my_move, their_move):
+        """ Records the moves made by the player and their opponent."""
         self.moves_result.append((my_move, their_move))
 
 
 class RandomPlayer(Player):
+    """A player class that inherits from the Player class and plays a random move"""
     def move(self):
         index = random.randint(0, 2)
         return self.moves[index]
 
 
 class HumanPlayer(Player):
+    """A player class that inherits from the Player class and allows the user to input their move."""
     def move(self):
+        """Asks a user for input and returns when it right"""
         while True:
             user_input = input("rock, paper, scissors? > ").lower()
             if user_input in self.moves:
@@ -27,6 +33,7 @@ class HumanPlayer(Player):
 
 
 class ReflectPlayer(Player):
+    """A player class that inherits from the Player class and plays the opponent's last move."""
     def move(self):
         """Plays a move of an opponent from a last round"""
         if self.moves_result:
@@ -37,6 +44,8 @@ class ReflectPlayer(Player):
 
 
 class CyclePlayer(Player):
+    """A player class that inherits from the Player class
+     and plays a move different from the opponent's last move."""
     def move(self):
         """Plays a move that is different from a last round opponent"""
         if self.moves_result:
