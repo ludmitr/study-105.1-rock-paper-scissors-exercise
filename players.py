@@ -34,4 +34,16 @@ class ReflectPlayer(Player):
             index = random.randint(0, 2)
             return self.moves[index]
 
+class CyclePlayer(Player):
+    def move(self):
+        """Plays a move that is different from a last round opponent"""
+        if self.moves_result:
+            opponent_last_move = self.moves_result[-1][1]
+            moves_to_make = [move for move in self.moves if move != opponent_last_move]
+            index = random.randint(0, 1)
+            return moves_to_make[index]
+        else:
+            index = random.randint(0, 2)
+            return self.moves[index]
+
 
