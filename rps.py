@@ -29,11 +29,12 @@ def beats(one: str, two: str) -> bool:
 class Game:
     """ Represents a game of Rock, Paper, Scissors between two players."""
 
-    def __init__(self, p1: players.Player, p2: players.Player):
+    def __init__(self, p1: players.Player, p2: players.Player, number_rounds=3):
         self.p1 = p1
         self.p2 = p2
         # index represent round. None is Draw, 1,2 represent players who won
         self.round_score = []
+        self.number_rounds = number_rounds
 
     def play_round(self) -> str:
         """Plays a single round of the game.
@@ -61,7 +62,7 @@ class Game:
     def play_game(self):
         """Plays the game with multiple rounds"""
         print("Game start!")
-        for game_round in range(3):
+        for game_round in range(self.number_rounds):
             print(f"Round {game_round}:")
             text_result_of_round = self.play_round()
             print(text_result_of_round)
