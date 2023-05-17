@@ -79,3 +79,7 @@ class CyclePlayer(Player):
         else:
             index = random.randint(0, len(self.moves)-1)
             return self.moves[index]
+
+    def learn(self, my_move, their_move):
+        """ Records the moves made by the player and their opponent."""
+        self.moves_result.append((my_move, their_move))
