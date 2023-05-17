@@ -15,6 +15,7 @@ class Player:
         self.my_score += points_won
 
     def move(self):
+        """Making a move, depending on the children"""
         pass
 
     def learn(self, my_move, their_move):
@@ -26,21 +27,25 @@ class AllRockPlayer(Player):
     """A player class that inherits from the Player
      class and plays always rock move"""
     def move(self):
-        return self.moves[0]
+        """Returns always rock"""
+        rock: str = self.moves[0]
+        return rock
 
 
 class RandomPlayer(Player):
     """A player class that inherits from the
     Player class and plays a random move"""
-    def move(self):
+    def move(self) -> str:
+        """Returns a random move"""
         index = random.randint(0, len(self.moves)-1)
-        return self.moves[index]
+        random_move = self.moves[index]
+        return random_move
 
 
 class HumanPlayer(Player):
     """A player class that inherits from the Player class
     and allows the user to input their move."""
-    def move(self):
+    def move(self) -> str:
         """Asks a user for input and returns when it right"""
         while True:
             user_input_move = input("rock, paper or scissors? > ").lower()
@@ -52,7 +57,7 @@ class HumanPlayer(Player):
 class ReflectPlayer(Player):
     """A player class that inherits from the Player class
     and plays the opponent's last move."""
-    def move(self):
+    def move(self) -> str:
         """Plays a move of an opponent from a last round"""
         if self.moves_result:
             return self.moves_result[-1][1]
